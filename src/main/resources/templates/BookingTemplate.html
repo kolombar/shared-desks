@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper">
+        <a th:href="@{/logout}" class="brand-logo right">Log Out</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a th:href="@{/employees}">Employees</a></li>
+            <li><a th:href="@{/desks}">Desks</a></li>
+            <li><a th:href="@{/bookings}">Bookings</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="w3-container w3-margin">
+    <h4>Bookings</h4>
+    <div class="w3-margin-bottom">
+        <form class="col s8" action="#" th:action="@{/bookings/add}" th:object="${booking}" method="post">
+            <div class="row" style="margin-bottom: 0px">
+                <div class="input-field col s3">
+                    <label for="date">Date</label><br>
+                    <input th:field="*{id.bookingTime}" id="date" type="date" class="validate">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s4">
+                    <label>Choose employee:</label>
+                    <select class="browser-default" style="display: block; width: 100%"
+                            th:field="*{id.employeeId}">
+                        <option value="" disabled selected>Choose employee</option>
+                        <option th:each="e:${employees}" th:value="${e.id}"
+                                th:text="${e.firstName + ' ' + e.lastName + ', ' + e.belongsTo.city }"></option>
+                    </select>
+                </div>
+                <div class="col s4">
+                    <label>Choose desk:</label>
+                    <select class="browser-default" style="display: block; width: 100%" th:field="*{id.deskId}">
+                        <option value="" disabled selected>Choose desk</option>
+                        <option th:each="d:${desks}" th:value="${d.id}" th:text="${d}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col s3 w3-margin-top">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Add
+                </button>
+            </div>
+            <p th:text="${message}" class="w3-text-green"></p>
+            <p th:if="${#fields.hasErrors()}">
+                <label class="w3-text-red">Errors:</label>
+            <li th:each="err : ${#fields.allErrors()}" th:text="${err}" th:class="w3-text-red"></li>
+            </p>
+        </form>
+    </div>
+    <div class="w3-margin-top">
+        <table class="highlight striped">
+            <th>Date</th>
+            <th>Employee</th>
+            <th>Desk</th>
+            <th>Actions</th>
+            <tr th:each="b:${bookings}">
+                <td th:text="${b.id.bookingTime}">999
+                </td>
+                <td th:text="${b.employee.firstName + ' ' + b.employee.lastName}">
+                    Novak
+                </td>
+                <td th:text="${b.desk}">
+                </td>
+                <td>
+                    <a th:href="@{'/bookings/delete?date=' + ${b.id.bookingTime} + '&employeeId=' + ${b.id.employeeId} + '&deskId=' + ${b.id.deskId}}"
+                       class="btn waves-effect waves-light2">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="w3-margin-top">
+        <a class="waves-effect waves-light btn" th:href="@{/bookings/download}">Download</a>
+    </div>
+</div>
+</body>
+</html>

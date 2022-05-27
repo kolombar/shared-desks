@@ -1,0 +1,13 @@
+image: openjdk:17
+
+stages:
+  - build
+
+build-and-test:
+  stage: build
+  script:
+    - ./gradlew clean build
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 week

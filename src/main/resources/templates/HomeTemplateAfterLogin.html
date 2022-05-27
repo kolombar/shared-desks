@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper">
+        <a th:href="@{/logout}" class="brand-logo right">Log Out</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a th:href="@{/employees}">Employees</a></li>
+            <li><a th:href="@{/desks}">Desks</a></li>
+            <li><a th:href="@{/bookings}">Bookings</a></li>
+        </ul>
+    </div>
+</nav>
+</div>
+</body>
+</html>
